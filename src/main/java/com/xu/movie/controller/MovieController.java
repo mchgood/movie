@@ -28,6 +28,9 @@ public class MovieController {
         if("typeBoxOffice".equals(pieType)){
             return movieService.selectTypeBoxOffice();
         }
+        if("countryBoxOffice".equals(pieType)){
+            return movieService.selectCountryBoxOffice();
+        }
         return null;
     }
 

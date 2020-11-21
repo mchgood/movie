@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -58,14 +58,16 @@ public class MovieDao {
         List<MovieEntity> result = new ArrayList<>();
         File file = null;
         try {
-            file = ResourceUtils.getFile(ResourceUtils.CLASSPATH_URL_PREFIX + "static/movie-data.log");
-        }catch (FileNotFoundException e){
-
+            String templatePath = ResourceUtils.CLASSPATH_URL_PREFIX + "static/movie-data.log";
+            file = ResourceUtils.getFile(templatePath);
+        }catch (IOException e) {
+            e.printStackTrace();
         }
         if(file == null){
             return null;
         }
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
         List<String> jsonArrDataList = FileUtil.readUtf8Lines(file);
 
         Integer year = 2020;

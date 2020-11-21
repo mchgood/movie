@@ -1,7 +1,11 @@
 var indexPage={
     myChart:null,
-    pieOption:function(nameList,dataList){
+    pieOption:function(nameList,dataList,titleText){
         return option = {
+            title:{
+                text:titleText,
+                left:'center'
+            },
             tooltip: {
                 trigger: 'item',
                 formatter: '{a} <br/>{b}: {c} ({d}%)'
@@ -78,7 +82,7 @@ var indexPage={
             ]
         };
     },
-    cliPieBoxOffice:function(){
+    clickPieCountryBoxOffice:function(){
         var _this = this;
         $.ajax({
             //请求方式
@@ -86,14 +90,32 @@ var indexPage={
             //请求的媒体类型
             contentType: "application/json;charset=UTF-8",
             //请求地址
-            url : "/movie/pie?pieType=pieBoxOffice",
+            url : "/movie/pie?pieType=countryBoxOffice",
             //请求成功
             success : function(result) {
-                var option = _this.pieOption(result.nameList,result.dataList);
+                var option = _this.pieOption(result.nameList,result.dataList,"国产片和外国片总票房单位（亿元）");
                 _this.refresh(option);
-                var titile = "年度总票房(单位：亿元)";
-                $("#titile").html(titile)
-
+            },
+            //请求失败，包含具体的错误信息
+            error : function(e){
+                console.log(e.status);
+                console.log(e.responseText);
+            }
+        });
+    },
+    clickPieTypeBoxOffice:function(){
+        var _this = this;
+        $.ajax({
+            //请求方式
+            type : "GET",
+            //请求的媒体类型
+            contentType: "application/json;charset=UTF-8",
+            //请求地址
+            url : "/movie/pie?pieType=typeBoxOffice",
+            //请求成功
+            success : function(result) {
+                var option = _this.pieOption(result.nameList,result.dataList,"各类型总票房单位（亿元）");
+                _this.refresh(option);
             },
             //请求失败，包含具体的错误信息
             error : function(e){
@@ -156,30 +178,7 @@ var indexPage={
             }
         });
     },
-    clickPieTypeBoxOffice:function(){
-        var _this = this;
-        $.ajax({
-            //请求方式
-            type : "GET",
-            //请求的媒体类型
-            contentType: "application/json;charset=UTF-8",
-            //请求地址
-            url : "/movie/pie?pieType=typeBoxOffice",
-            //请求成功
-            success : function(result) {
-                var option = _this.pieOption(result.nameList,result.dataList);
-                _this.refresh(option);
-                var titile = "2008-2020 各类型总票房(单位：亿元)";
-                $("#titile").html(titile)
 
-            },
-            //请求失败，包含具体的错误信息
-            error : function(e){
-                console.log(e.status);
-                console.log(e.responseText);
-            }
-        });
-    },
     init:function () {
         this.myChart = echarts.init(document.getElementById('main'));
     },

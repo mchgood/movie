@@ -58,16 +58,73 @@ public class MovieService {
         List<Map<String,Object>> dataList = new ArrayList<>();
 
         List<MovieEntity> movieEntities = movieDao.selectAll();
+        nameList = movieEntities.stream()
+                        .map(MovieEntity::getGenreMain)
+                        .distinct()
+                        .filter(t->{
+                            return StrUtil.isNotEmpty(t) && !t.contains("/");
+                        })
+                        .collect(Collectors.toList());
+
         Map<String, List<MovieEntity>> movieEntityGroupByGenreMain = movieEntities.stream()
                 .filter(t->{
                     return !StrUtil.isEmpty(t.getGenreMain());
                 })
                 .collect(Collectors.groupingBy(MovieEntity::getGenreMain));
 
-        for (String genreMain:movieEntityGroupByGenreMain.keySet()) {
-            nameList.add(genreMain);
+        for (int i = 0; i < nameList.size(); i++) {
+            String genreMain = nameList.get(i);
+            Integer sum = movieEntityGroupByGenreMain.get(genreMain).stream().mapToInt(MovieEntity::getBoxOffice).sum();
+            Map<String,Object> map = new HashMap<>();
+
+            map.put("value",sum/1000);
+            map.put("name",genreMain);
+            dataList.add(map);
         }
+
         Map<String,Object> result = new HashMap<>();
+        result.put("dataList",dataList);
+        result.put("nameList",nameList);
+        return result;
+    }
+
+    /**
+     * 饼图 - 查询各国产片和外国片总票房
+     */
+    public Map<String, Object> selectCountryBoxOffice() {
+        List<String> nameList = Arrays.asList("国产片","外国片");
+        List<Map<String,Object>> dataList = new ArrayList<>();
+
+        List<MovieEntity> movieEntities = movieDao.selectAll();
+
+        Integer china = 0;
+        Integer other = 0;
+        for (MovieEntity movieEntity : movieEntities) {
+            String area = movieEntity.getArea();
+            Integer boxOffice = movieEntity.getBoxOffice();
+            if(StrUtil.isEmpty(area) || boxOffice==null){
+                continue;
+            }
+            if(area.contains("中国") || area.contains("香港")){
+                china = china + boxOffice;
+            }else {
+                other = other + boxOffice;
+            }
+        }
+
+        Map<String,Object> chinaMap = new HashMap<>();
+        chinaMap.put("value",china/1000);
+        chinaMap.put("name","国产片");
+        Map<String,Object> otherMap = new HashMap<>();
+        otherMap.put("value",other/1000);
+        otherMap.put("name","外国片");
+
+        dataList.add(chinaMap);
+        dataList.add(otherMap);
+
+        Map<String,Object> result = new HashMap<>();
+        result.put("dataList",dataList);
+        result.put("nameList",nameList);
         return result;
     }
 
@@ -132,5 +189,6 @@ public class MovieService {
         }).collect(Collectors.toList()));
         return result;
     }
+
 
 }
