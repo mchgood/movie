@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据分析</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="stylesheet" href="/layui/css/layui.css">
+</head>
+<body>
+<fieldset class="layui-elem-field site-demo-button" style="width: 100%">
+    <legend>功能区</legend>
+    <div style="text-align:center">
+        <button type="button" class="layui-btn layui-btn-primary layui-btn-radius" onclick="indexPage.clickBarBoxOffice()">年度总票房</button>
+        <button type="button" class="layui-btn layui-btn-radius"onclick="indexPage.clickBarYearBoxOffice()">年度票房冠军</button>
+        <button type="button" class="layui-btn layui-btn-normal layui-btn-radius" onclick="indexPage.clickPieTypeBoxOffice()">各类型总票房</button>
+        <button type="button" class="layui-btn layui-btn-warm layui-btn-radius">国产片和外国片</button>
+        <button type="button" class="layui-btn layui-btn-danger layui-btn-radius">警告按钮</button>
+    </div>
+</fieldset>
+
+<div style="width: 100%;text-align:center;">
+    <center>
+        <div id="main" style="width: 100%;height:400px;">
+
+        </div>
+        <hr class="layui-bg-gray">
+    </center>
+</div>
+
+</body>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script src="/echarts/echarts.min.js"></script>
+<script src="/layui/layui.js"></script>
+
+<script>
+    $(document).ready(function(){
+        indexPage.creat();
+    });
+</script>
+</html>
