@@ -191,4 +191,38 @@ public class MovieService {
     }
 
 
+    /**
+     * 查询图片路径
+     */
+    public Map<String, Object> selectImages() {
+        Map<String, Object> result = new HashMap<>();
+        List<Map<String,Object>> list = new ArrayList<>();
+        List<String> names = movieDao.selectImgNames();
+
+        for (String name : names) {
+            Map<String,Object> map = new HashMap<>();
+            map.put("resource","/img/"+name);
+            map.put("src","/img/1/"+name);
+            list.add(map);
+        }
+
+        result.put("data",list);
+        return result;
+    }
+
+//    public static void main(String[] args) {
+//        File[] files = FileUtil.ls("G:\\Person\\IDEA\\movie\\src\\main\\resources\\static\\img");
+//        for (int i = 0; i < files.length; i++) {
+//            File file = files[i];
+//
+//            String name = file.getName();
+//            if("1".equals(name)){
+//                continue;
+//            }
+//            String outPath = "G:\\Person\\IDEA\\movie\\src\\main\\resources\\static\\img\\1\\"+name;
+//            Img.from(file)
+//                    .scale(0.5f)//压缩比率
+//                    .write(FileUtil.file(outPath));
+//        }
+//    }
 }

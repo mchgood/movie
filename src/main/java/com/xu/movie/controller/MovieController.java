@@ -45,4 +45,9 @@ public class MovieController {
         }
         return null;
     }
+
+    @GetMapping("/images")
+    public Map<String,Object> selectImages(){
+        return movieService.selectImages();
+    }
 }

@@ -11,4 +11,9 @@ public class CacheConstant {
      * 电影缓存
      */
     public static final String MOVIE_KEY = "movie";
+
+    /**
+     * 图片名称
+     */
+    public static final String IMG_NAME = "movie:img";
 }

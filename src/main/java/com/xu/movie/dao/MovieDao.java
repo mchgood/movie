@@ -52,6 +52,42 @@ public class MovieDao {
     }
 
     /**
+     * 查询图片名称
+     */
+    public List<String> selectImgNames(){
+        Object o = iCache.get(CacheConstant.IMG_NAME);
+        if(o==null){
+            return selectImgNamesByDisk();
+        }
+        List<String> result = new ArrayList<>();
+        String jsonStr = JSONUtil.toJsonStr(o);
+        JSONArray jSONArray = JSONUtil.parseArray(jsonStr);
+        for (int i = 0; i < jSONArray.size();i++) {
+            String entity = (String)jSONArray.get(i);
+            result.add(entity);
+        }
+        return result;
+    }
+
+    /**
+     * 从硬盘查询
+     */
+    private List<String> selectImgNamesByDisk() {
+        List<String> names = new ArrayList<>();
+        String templatePath = ResourceUtils.CLASSPATH_URL_PREFIX + "static/img";
+        File[] files = FileUtil.ls(templatePath);
+        for (int i = 0; i < files.length; i++) {
+            File file = files[i];
+            String name = file.getName();
+            if("1".equals(name)){
+                continue;
+            }
+            names.add(name);
+        }
+        return names;
+    }
+
+    /**
      * 从硬盘查询
      */
     private List<MovieEntity> selectAllByDisk(){

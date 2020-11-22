@@ -178,7 +178,9 @@ var indexPage={
             }
         });
     },
-
+    clickImg:function(){
+        window.open("/other.html");
+    },
     init:function () {
         this.myChart = echarts.init(document.getElementById('main'));
     },

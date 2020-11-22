@@ -25,5 +25,7 @@ public class MovieApplicationRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments applicationArguments) throws Exception {
         iCache.put(CacheConstant.MOVIE_KEY,movieDao.selectAll());
+
+        iCache.put(CacheConstant.IMG_NAME,movieDao.selectImgNames());
     }
 }

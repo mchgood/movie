@@ -1,0 +1,44 @@
+<html><!DOCTYPE html>
+<html>
+<head>
+    <title>海报封面</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <link rel="stylesheet" href="/css/wall.css" tppabs="http://www.pper.com.cn/css/wall.css" />
+    <link rel="stylesheet" href="/css/lightbox.min.css" tppabs="http://www.pper.com.cn/css/lightbox.min.css" />
+
+</head>
+<body>
+<div id="info" uid="">
+
+
+</div>
+<div id="container"></div>
+<div id="menu">
+    <button id="table">照片墙</button>
+    <button id="sphere">水晶球</button>
+    <button id="helix">螺旋塔</button>
+    <button id="grid">展览厅</button>
+</div>
+
+
+<script src="/js/three.min.js" tppabs="http://www.pper.com.cn/js/three.min.js"></script>
+<script src="/js/tween.min.js" tppabs="http://www.pper.com.cn/js/tween.min.js"></script>
+<script src="/js/TrackballControls.js" tppabs="http://www.pper.com.cn/js/TrackballControls.js"></script>
+<script src="/js/CSS3DRenderer.js" tppabs="http://www.pper.com.cn/js/CSS3DRenderer.js"></script>
+<script src="/js/jquery-3.3.1.min.js" tppabs="http://www.pper.com.cn/js/jquery-3.3.1.min.js"></script>
+<script src="/js/lazyload.js" tppabs="http://www.pper.com.cn/js/lazyload.js"></script>
+<script src="/js/lightbox.js" tppabs="http://www.pper.com.cn/js/lightbox.js"></script>
+<script src="/js/wall.js" tppabs="http://www.pper.com.cn/js/wall.js"></script>
+<!--
+<script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+-->
+<script >
+    $(function() {
+        var uid = $("#info").attr("uid");
+        getImgs(uid);
+        lazyload();
+    })
+</script>
+</body>
+</html>
